@@ -403,7 +403,12 @@
     else
     {
         NSData *decryptedData = [self decryptData:binaryFile withKey:SECRET_KEY];
-        dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+        @try {
+            dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+        }
+        @catch (NSException * e) {
+            dictionary = [NSMutableDictionary dictionary];
+        }
     }
     
     return dictionary;
